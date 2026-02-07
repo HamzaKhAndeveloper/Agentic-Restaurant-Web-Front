@@ -3,8 +3,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './Auth.css';
 import { useEffect } from 'react';
-import dotenv from 'dotenv';
-dotenv.config();
 function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -31,7 +29,7 @@ function Signup() {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${process.env.VITE_API_URL}/api/register`, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/register`, {
         username,
         email,
         password

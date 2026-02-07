@@ -1,6 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import dotenv from 'dotenv';
-dotenv.config();
 import axios from 'axios';
 import './ChatSidebar.css';
 
@@ -18,7 +16,7 @@ function ChatSidebar({ isOpen, onClose }) {
     const timer = setInterval(async () => {
       const token = localStorage.getItem('token');
       if (!token) return;
-      const res = await fetch(`${process.env.VITE_API_URL}/api/confirm/question`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/confirm/question`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -45,7 +43,7 @@ function ChatSidebar({ isOpen, onClose }) {
 
   async function sendAnswer(ans) {
     const token = localStorage.getItem('token');
-    await fetch(`${process.env.VITE_API_URL}/api/confirm/answer`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/api/confirm/answer`, {
       method: "POST",
       headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
       body: JSON.stringify({ answer: ans })
@@ -60,7 +58,7 @@ function ChatSidebar({ isOpen, onClose }) {
       try {
         const token = localStorage.getItem('token');
         const res = await axios.get(
-          `${process.env.VITE_API_URL}/api/messages/${user.id}`,
+          `${import.meta.env.VITE_API_URL}/api/messages/${user.id}`,
           {
             headers: {
               'Authorization': `Bearer ${token}`
@@ -126,7 +124,7 @@ function ChatSidebar({ isOpen, onClose }) {
     }
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post(`${process.env.VITE_API_URL}/api/ai-chat`, {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/ai-chat`, {
         message: userMessage.content,
         name: userMessage.sender,
 

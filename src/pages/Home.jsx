@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import dotenv from 'dotenv';
-dotenv.config();
 import ChatSidebar from '../components/ChatSidebar';
 import './Home.css';
 
@@ -35,15 +33,15 @@ function Home() {
 
   const fetchData = async () => {
     try {
-      const menuRes = await axios.get(`${process.env.VITE_API_URL}/api/menu`);
-      const tablesRes = await axios.get(`${process.env.VITE_API_URL}/api/tables`);
+      const menuRes = await axios.get(`${import.meta.env.VITE_API_URL}/api/menu`);
+      const tablesRes = await axios.get(`${import.meta.env.VITE_API_URL}/api/tables`);
 
       setMenu(menuRes.data);
       setTables(tablesRes.data);
 
       try {
         const ordersRes = await axios.get(
-          `${process.env.VITE_API_URL}/api/orders`,
+          `${import.meta.env.VITE_API_URL}/api/orders`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -71,7 +69,7 @@ function Home() {
     }
 
     try {
-      await axios.post(`${process.env.VITE_API_URL}/api/tables/book`, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/tables/book`, {
         tableId: selectedTable._id,
         hours: Number(hour)
       }, {
@@ -143,7 +141,7 @@ function Home() {
 
       };
 
-      const response = await axios.post(`${process.env.VITE_API_URL}/api/orders`, order, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/orders`, order, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setOrders([...orders, response.data]);
