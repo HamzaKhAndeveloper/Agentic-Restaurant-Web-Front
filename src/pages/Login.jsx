@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 import './Auth.css';
 import { useEffect } from 'react';
 
@@ -29,7 +31,7 @@ function Login() {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/login', {
+      const response = await axios.post(`${process.env.VITE_API_URL}/api/login`, {
         email,
         password
       });
